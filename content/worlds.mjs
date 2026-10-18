@@ -1,0 +1,56 @@
+// The game cards. `url` is null when the game has no public version.
+// `available` is true only when anyone can play it today.
+
+export const worlds = [
+  {
+    id: 'home',
+    name: 'Blobbi Home',
+    art: 'home',
+    tagline: 'The home of your Blobbi.',
+    text: 'Adopt an egg, hatch it and care for your Blobbi as it grows up.',
+    url: 'https://www.blobbi.pet',
+    repo: 'https://github.com/Danidfra/nostr-pet',
+    available: true,
+  },
+  {
+    id: 'pixel',
+    name: 'Blobbi Pixel',
+    art: 'pixel',
+    tagline: 'A procedural pixel-art world.',
+    text: 'Gather, craft, farm and build a home on an island drawn pixel by pixel from a seed.',
+    url: 'https://pixel.blobbi.pet',
+    repo: 'https://github.com/Danidfra/blobbi-pixel-game',
+    available: true,
+  },
+  {
+    id: 'island',
+    name: 'Blobbi Island',
+    art: 'island',
+    tagline: 'A walkable island to share.',
+    text: 'Walk your Blobbi around town, shop, play mini-games and meet other players.',
+    url: 'https://island.blobbi.pet',
+    repo: 'https://github.com/Danidfra/blobbi-island',
+    available: true,
+  },
+  {
+    id: 'farm',
+    name: 'Nostr Farm',
+    art: 'farm',
+    tagline: 'A farm that belongs to your key.',
+    text: 'Plant, water and harvest crops on a farm saved as your own Nostr events.',
+    url: 'https://farm.blobbi.pet',
+    repo: 'https://github.com/Danidfra/nostr-farm',
+    available: true,
+  },
+  {
+    id: 'rumble',
+    name: 'Blobbi Rumble',
+    art: 'rumble',
+    tagline: 'A 3D party brawler.',
+    text: 'Up to four Blobbis punch, grab and throw each other off floating arenas.',
+    url: null,
+    repo: 'https://github.com/Danidfra/blobbi-rumble',
+    available: false,
+    unavailableLabel: 'No public server yet',
+  },
+];

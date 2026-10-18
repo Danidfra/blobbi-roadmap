@@ -1,6 +1,8 @@
 # Verification record, 2026-10-18
 
-How each claim on the site was checked. Re-check before changing a status.
+Internal project documentation: how the claims behind the public page were
+checked. The page itself stays short; the detail lives here. Re-check before
+changing a claim or an availability label.
 
 ## Checked live on 2026-10-18
 

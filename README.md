@@ -13,20 +13,15 @@ All text lives in `content/`; you should rarely need to touch anything else.
 
 | File | What it holds |
 | --- | --- |
-| `content/meta.mjs` | Title, description, URL, **`updated` date**, the four status labels |
-| `content/ecosystem.mjs` | The apps and libraries, with a status per feature |
-| `content/status.mjs` | The status ledger: what exists today, with evidence |
-| `content/roadmap.mjs` | The six months, each item with a status |
-| `content/sections.mjs` | Overview, interoperability, adoption, metrics, open source |
+| `content/meta.mjs` | Title, description, URL, **`updated` date**, the introduction |
+| `content/worlds.mjs` | The five game cards; `available` decides "Play now" |
+| `content/roadmap.mjs` | The six months, at most two short sentences each |
+| `content/nostr.mjs` | "Built on Nostr": four points and the library links |
 
-Statuses are `released`, `implemented`, `development` and `planned`. When a
-roadmap item moves, change its `status` and add a `progress` line linking to
-the evidence (a release, a commit, a report):
-
-```js
-{ status: 'released', text: 'Improve mobile onboarding and navigation.',
-  progress: 'Shipped in Blobbi Home, see [the release](https://github.com/…).' },
-```
+When a month's work lands, add a `progress` line to it with a link to the
+evidence (a release, a commit, a report). Keep the page short: details and
+evidence belong in [`docs/VERIFICATION.md`](docs/VERIFICATION.md), not on
+the page.
 
 Then set `meta.updated` to today's date and rebuild. Inline text supports
 `` `code` `` and `[links](https://…)`; everything else is escaped.
