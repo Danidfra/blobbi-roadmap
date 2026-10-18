@@ -21,7 +21,7 @@ const art = (name, size, alt = '') =>
 function renderWorlds() {
   const card = (w) => {
     const badge = w.available
-      ? '<span class="badge badge--live"><span aria-hidden="true">●</span> Play now</span>'
+      ? `<span class="badge badge--live"><span aria-hidden="true">●</span> ${esc(w.availableLabel ?? 'Play now')}</span>`
       : `<span class="badge badge--soon"><span aria-hidden="true">○</span> ${esc(w.unavailableLabel)}</span>`;
     const play = w.url
       ? `<a class="btn btn--play" href="${esc(w.url)}">Play<span class="visually-hidden"> ${esc(w.name)}</span></a>`
@@ -38,7 +38,7 @@ function renderWorlds() {
   };
   return `<section class="section" id="worlds" aria-labelledby="worlds-title">
     <h2 id="worlds-title">Explore the worlds</h2>
-    <p class="section__intro">Five games that share one open world.</p>
+    <p class="section__intro">Different games. One connected ecosystem.</p>
     <ul class="worlds">${worlds.map(card).join('')}</ul>
   </section>`;
 }

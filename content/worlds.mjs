@@ -1,5 +1,6 @@
 // The game cards. `url` is null when the game has no public version.
-// `available` is true only when anyone can play it today.
+// `available` is true only when anyone can play it today; `availableLabel`
+// overrides the default "Play now".
 
 export const worlds = [
   {
@@ -31,6 +32,7 @@ export const worlds = [
     url: 'https://island.blobbi.pet',
     repo: 'https://github.com/Danidfra/blobbi-island',
     available: true,
+    availableLabel: 'Play now · Early access',
   },
   {
     id: 'farm',
