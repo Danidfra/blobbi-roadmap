@@ -17,7 +17,7 @@ export const intro = {
   headline: 'One Blobbi. Many worlds.',
   paragraphs: [
     'An open universe of connected games, built on Nostr.',
-    'Bring your Blobbi, your items and your adventures across independent worlds. Every game and library is open source, so anyone can build the next one.',
+    'Bring your Blobbi, your items and your adventures across independent worlds.',
   ],
 };
 

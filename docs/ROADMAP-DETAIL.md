@@ -400,7 +400,7 @@ aggregated by a published script that anyone can re-run.
 | Are they new to Nostr? | Identities whose key was created inside a Blobbi world: a lower bound only |
 | Do they come back? | Identities active on two or more days in their first week, and in two or more months |
 | Do they explore? | Identities active in two or more worlds in a month; World Travel trips per month |
-| Do they invite others? | Invitation links opened and accepted, only if a privacy-respecting counter is adopted (see below) |
+| Do they invite others? | Not measured from public data: invitations are encrypted messages. Reported from playtest observations only |
 
 **Rules**
 
@@ -412,10 +412,10 @@ aggregated by a published script that anyone can re-run.
   report.
 - No ads, no third-party trackers, no cookies for measurement.
 
-**Open decision.** Invitations sent as encrypted messages cannot be counted
-from public data. Counting them would need a small self-hosted, cookieless
-counter that stores no personal data. This will only be added if approved;
-otherwise invitations are reported from playtest observations.
+**No server-side counters.** Measurement starts with public Nostr data,
+and only for questions it can answer reliably. Invitations sent as encrypted
+messages cannot be counted that way, so they are not measured; playtest notes
+describe how invitations are used instead.
 
 **No growth targets are promised.** Reports describe what happened, with the
 same method each time.

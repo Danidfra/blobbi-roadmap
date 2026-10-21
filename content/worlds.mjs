@@ -54,20 +54,21 @@ export const worlds = [
     name: 'Blobbi Rumble',
     art: 'rumble',
     tagline: 'A 3D party brawler.',
-    text: 'Up to four Blobbis punch, grab and throw each other off floating arenas. Online matches have been tested; it is not open to the public yet.',
+    text: 'Up to four Blobbis punch, grab and throw each other off floating arenas.',
     url: null,
     repo: 'https://github.com/Danidfra/blobbi-rumble',
     status: 'testing',
+    note: 'Not public yet',
   },
 ];
 
 export const connections = {
-  intro: 'Each world is its own game. Nostr, an open protocol, lets them share one character and one inventory.',
+  intro: 'Nostr, an open protocol, lets independent games share your Blobbi and your items.',
   items: [
     {
       status: 'available',
-      title: 'One key for every world',
-      text: 'Sign in with your own Nostr key, not a game account. It works in every Blobbi game and across Nostr.',
+      title: 'Your Nostr identity across connected worlds',
+      text: 'Your Blobbi belongs to your own Nostr key, not a game account. For now each world asks you to sign in on its own.',
     },
     {
       status: 'available',
@@ -87,12 +88,12 @@ export const connections = {
     {
       status: 'testing',
       title: 'Online matches',
-      text: 'Blobbi Rumble runs matches on a game server and brings in your own Blobbi. Tested online, not yet public.',
+      text: 'Blobbi Rumble brings your own Blobbi into matches run on its game server. Tested over the internet.',
     },
     {
       status: 'planned',
       title: 'Explore together in Pixel',
-      text: 'Small groups exploring and building in the same Blobbi Pixel world. Planned for month 4.',
+      text: 'Small groups exploring and building in the same Blobbi Pixel world, in month 4.',
     },
   ],
 };

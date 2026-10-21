@@ -18,6 +18,6 @@ export const opensource = {
   links: [
     ['blobbi-kit', 'https://github.com/Danidfra/blobbi-kit', 'The Blobbi character'],
     ['nostr-games-inventory', 'https://github.com/Danidfra/nostr-games-inventory', 'Game items on Nostr'],
-    ['All repositories', 'https://github.com/Danidfra', 'Every game and library on GitHub'],
+    ['All repositories', 'https://github.com/Danidfra', 'Danidfra on GitHub'],
   ],
 };

@@ -31,7 +31,7 @@ export const roadmap = [
     title: 'Worlds That Grow',
     theme: 'Gameplay expansions',
     art: 'farm',
-    text: 'More crops, animals and activities in Nostr Farm, new things to do and customize on Blobbi Island, better rewards in Blobbi Home, and deeper exploration and crafting in Blobbi Pixel.',
+    text: 'More crops, animals and activities in Nostr Farm, new activities and customization on Blobbi Island, better rewards in Blobbi Home, and deeper crafting in Blobbi Pixel.',
     outcome: 'Discover evolving worlds filled with new activities, collectibles and adventures.',
   },
   {
@@ -55,7 +55,7 @@ export const roadmap = [
     title: 'The Universe Comes Together',
     theme: 'Community, integration and public beta',
     art: 'hero',
-    text: 'Cross-world events, public playtests and a stability and accessibility pass. The target is an integrated public beta once clear readiness criteria are met, plus a public report on development and adoption.',
+    text: 'Cross-world events, public playtests and a stability and accessibility pass. The target is an integrated public beta once clear readiness criteria are met, then a public report.',
     outcome: 'Join a growing universe of connected worlds, shared adventures and community-driven experiences.',
   },
 ];

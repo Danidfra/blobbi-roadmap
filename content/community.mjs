@@ -14,7 +14,7 @@ export const community = {
     },
     {
       title: 'Build Connections',
-      text: 'Work with Nostr clients, communities and other open-source projects to help players find Blobbi. Blobbis can already be raised inside Ditto, a Nostr client.',
+      text: 'Look for collaborations with Nostr clients, communities and other open-source projects that help players find Blobbi. Blobbis can already be raised inside Ditto, a Nostr client.',
     },
     {
       title: 'Learn and Grow',
