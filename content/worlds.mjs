@@ -1,6 +1,11 @@
-// The game cards. `url` is null when the game has no public version.
-// `available` is true only when anyone can play it today; `availableLabel`
-// overrides the default "Play now".
+// "The Blobbi Universe": the game cards and what already connects them.
+//
+// Worlds: `url` is null when the game has no public version. `status` is one
+// of the keys in `statuses` (content/meta.mjs); `note` adds a short qualifier
+// to the badge.
+//
+// Connections: one line each, with the same `status` keys. Only claims that
+// docs/VERIFICATION.md backs up belong here.
 
 export const worlds = [
   {
@@ -8,10 +13,10 @@ export const worlds = [
     name: 'Blobbi Home',
     art: 'home',
     tagline: 'The home of your Blobbi.',
-    text: 'Adopt an egg, hatch it and care for your Blobbi as it grows up.',
+    text: 'Adopt an egg, hatch it and care for your Blobbi as it grows up. Try it before making an account.',
     url: 'https://www.blobbi.pet',
     repo: 'https://github.com/Danidfra/nostr-pet',
-    available: true,
+    status: 'available',
   },
   {
     id: 'pixel',
@@ -21,38 +26,73 @@ export const worlds = [
     text: 'Gather, craft, farm and build a home on an island drawn pixel by pixel from a seed.',
     url: 'https://pixel.blobbi.pet',
     repo: 'https://github.com/Danidfra/blobbi-pixel-game',
-    available: true,
+    status: 'available',
   },
   {
     id: 'island',
     name: 'Blobbi Island',
     art: 'island',
     tagline: 'A walkable island to share.',
-    text: 'Walk your Blobbi around town, shop, play mini-games and meet other players.',
+    text: 'Walk your Blobbi around town, shop, play mini-games and meet other players live.',
     url: 'https://island.blobbi.pet',
     repo: 'https://github.com/Danidfra/blobbi-island',
-    available: true,
-    availableLabel: 'Play now · Early access',
+    status: 'available',
+    note: 'Early access',
   },
   {
     id: 'farm',
     name: 'Nostr Farm',
     art: 'farm',
     tagline: 'A farm that belongs to your key.',
-    text: 'Plant, water and harvest crops on a farm saved as your own Nostr events.',
+    text: 'Plant, water and harvest crops, then use them to feed your Blobbi in other worlds.',
     url: 'https://farm.blobbi.pet',
     repo: 'https://github.com/Danidfra/nostr-farm',
-    available: true,
+    status: 'available',
   },
   {
     id: 'rumble',
     name: 'Blobbi Rumble',
     art: 'rumble',
     tagline: 'A 3D party brawler.',
-    text: 'Up to four Blobbis punch, grab and throw each other off floating arenas.',
+    text: 'Up to four Blobbis punch, grab and throw each other off floating arenas. Online matches have been tested; it is not open to the public yet.',
     url: null,
     repo: 'https://github.com/Danidfra/blobbi-rumble',
-    available: false,
-    unavailableLabel: 'No public server yet',
+    status: 'testing',
   },
 ];
+
+export const connections = {
+  intro: 'Each world is its own game. Nostr, an open protocol, lets them share one character and one inventory.',
+  items: [
+    {
+      status: 'available',
+      title: 'One key for every world',
+      text: 'Sign in with your own Nostr key, not a game account. It works in every Blobbi game and across Nostr.',
+    },
+    {
+      status: 'available',
+      title: 'Travel between Home and Pixel',
+      text: 'Send your Blobbi from Blobbi Home to Blobbi Pixel and back.',
+    },
+    {
+      status: 'testing',
+      title: 'Travel to Blobbi Island',
+      text: 'Travel to and from Blobbi Island is built. We are checking it on the live site.',
+    },
+    {
+      status: 'available',
+      title: 'Shared items',
+      text: 'Crops from Nostr Farm feed your Blobbi on Blobbi Island and in Blobbi Home. Keeping item counts in sync across every game is still being improved.',
+    },
+    {
+      status: 'testing',
+      title: 'Online matches',
+      text: 'Blobbi Rumble runs matches on a game server and brings in your own Blobbi. Tested online, not yet public.',
+    },
+    {
+      status: 'planned',
+      title: 'Explore together in Pixel',
+      text: 'Small groups exploring and building in the same Blobbi Pixel world. Planned for month 4.',
+    },
+  ],
+};

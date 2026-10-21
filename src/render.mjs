@@ -1,9 +1,10 @@
 // Renders the content in content/ to one static HTML page.
 
-import { meta, intro } from '../content/meta.mjs';
-import { worlds } from '../content/worlds.mjs';
-import { roadmap } from '../content/roadmap.mjs';
-import { nostr } from '../content/nostr.mjs';
+import { meta, intro, statuses } from '../content/meta.mjs';
+import { worlds, connections } from '../content/worlds.mjs';
+import { roadmap, roadmapIntro } from '../content/roadmap.mjs';
+import { community } from '../content/community.mjs';
+import { opensource } from '../content/opensource.mjs';
 
 const esc = (s) =>
   String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
@@ -18,16 +19,21 @@ function inline(s) {
 const art = (name, size, alt = '') =>
   `<img class="art" src="/art/${name}.svg" width="${size}" height="${Math.round(size * 1.125)}" alt="${esc(alt)}" loading="lazy" decoding="async">`;
 
-function renderWorlds() {
+// A status chip. The symbol differs per status so it does not rely on colour.
+const symbols = { available: '●', testing: '◐', planned: '○' };
+function chip(status, note, extraClass = '') {
+  if (!statuses[status]) throw new Error(`Unknown status: ${status}`);
+  const label = note ? `${statuses[status]} · ${note}` : statuses[status];
+  return `<span class="chip chip--${status}${extraClass}"><span aria-hidden="true">${symbols[status]}</span> ${esc(label)}</span>`;
+}
+
+function renderUniverse() {
   const card = (w) => {
-    const badge = w.available
-      ? `<span class="badge badge--live"><span aria-hidden="true">●</span> ${esc(w.availableLabel ?? 'Play now')}</span>`
-      : `<span class="badge badge--soon"><span aria-hidden="true">○</span> ${esc(w.unavailableLabel)}</span>`;
     const play = w.url
       ? `<a class="btn btn--play" href="${esc(w.url)}">Play<span class="visually-hidden"> ${esc(w.name)}</span></a>`
       : '';
     return `<li class="world world--${w.id}">
-        <div class="world__stage">${art(w.art, 112)}${badge}</div>
+        <div class="world__stage">${art(w.art, 112)}${chip(w.status, w.note, ' badge')}</div>
         <div class="world__body">
           <h3>${esc(w.name)}</h3>
           <p class="world__tagline">${esc(w.tagline)}</p>
@@ -36,26 +42,40 @@ function renderWorlds() {
         </div>
       </li>`;
   };
-  return `<section class="section" id="worlds" aria-labelledby="worlds-title">
-    <h2 id="worlds-title">Explore the worlds</h2>
-    <p class="section__intro">Different games. One connected ecosystem.</p>
+  return `<section class="section" id="universe" aria-labelledby="universe-title">
+    <h2 id="universe-title">The Blobbi Universe</h2>
+    <p class="section__intro">Five worlds, each with its own way to play. Four are open to everyone today.</p>
     <ul class="worlds">${worlds.map(card).join('')}</ul>
+    <div class="connections">
+      <h3 id="connections-title">What already connects them</h3>
+      <p class="section__intro">${inline(connections.intro)}</p>
+      <ul class="links">${connections.items
+        .map(
+          (c) => `<li class="link">
+          ${chip(c.status)}
+          <h4>${esc(c.title)}</h4>
+          <p>${inline(c.text)}</p>
+        </li>`,
+        )
+        .join('')}</ul>
+    </div>
   </section>`;
 }
 
 function renderRoadmap() {
-  return `<section class="section" id="next" aria-labelledby="next-title">
-    <h2 id="next-title">What’s next?</h2>
-    <p class="section__intro">Six steps, counted in months from the start of the funded development period. No calendar dates yet.</p>
+  return `<section class="section" id="roadmap" aria-labelledby="roadmap-title">
+    <h2 id="roadmap-title">Six-Month Roadmap</h2>
+    <p class="section__intro">${inline(roadmapIntro)}</p>
     <ol class="timeline">${roadmap
       .map(
         (m) => `<li class="step">
         <div class="step__node" aria-hidden="true">${m.month}</div>
         <div class="step__card">
           <div class="step__art">${art(m.art, 64)}</div>
-          <p class="step__month">Month ${m.month}</p>
+          <p class="step__month">Month ${m.month}<span class="visually-hidden">:</span> <span class="step__theme">${esc(m.theme)}</span></p>
           <h3>${esc(m.title)}</h3>
           <p>${inline(m.text)}</p>
+          <p class="step__outcome"><span class="visually-hidden">Outcome: </span>${inline(m.outcome)}</p>
           ${m.progress ? `<p class="step__progress">${inline(m.progress)}</p>` : ''}
         </div>
       </li>`,
@@ -64,14 +84,30 @@ function renderRoadmap() {
   </section>`;
 }
 
-function renderNostr() {
-  return `<section class="section" id="nostr" aria-labelledby="nostr-title">
-    <h2 id="nostr-title">Built on Nostr</h2>
-    <p class="section__intro">${inline(nostr.intro)}</p>
-    <ul class="pillars">${nostr.points
+function renderCommunity() {
+  return `<section class="section" id="community" aria-labelledby="community-title">
+    <h2 id="community-title">Growing the Blobbi Universe</h2>
+    <p class="section__intro">${inline(community.intro)}</p>
+    <ul class="pillars">${community.pillars
       .map((p, i) => `<li class="pillar pillar--${i + 1}"><h3>${esc(p.title)}</h3><p>${inline(p.text)}</p></li>`)
       .join('')}</ul>
-    <ul class="repos">${nostr.links
+  </section>`;
+}
+
+function renderOpenSource() {
+  return `<section class="section" id="open-source" aria-labelledby="open-source-title">
+    <h2 id="open-source-title">Open Source</h2>
+    <p class="section__intro">${inline(opensource.intro)}</p>
+    <ul class="links links--two">${opensource.developers
+      .map(
+        (d) => `<li class="link">
+          ${chip(d.status)}
+          <h3>${esc(d.title)}</h3>
+          <p>${inline(d.text)}</p>
+        </li>`,
+      )
+      .join('')}</ul>
+    <ul class="repos">${opensource.links
       .map(([name, href, sub]) => `<li><a href="${esc(href)}"><strong>${esc(name)}</strong><span>${esc(sub)}</span></a></li>`)
       .join('')}</ul>
   </section>`;
@@ -115,8 +151,8 @@ export function renderPage({ cssHref }) {
       <h1>${esc(intro.headline)}</h1>
       ${intro.paragraphs.map((p, i) => `<p class="${i ? 'hero__lead' : 'hero__kicker'}">${inline(p)}</p>`).join('')}
       <nav class="hero__cta" aria-label="Sections">
-        <a class="btn btn--play" href="#worlds">Explore the worlds</a>
-        <a class="btn" href="#next">What’s next</a>
+        <a class="btn btn--play" href="#universe">Explore the universe</a>
+        <a class="btn" href="#roadmap">See the roadmap</a>
       </nav>
     </div>
     <div class="hero__art">
@@ -129,9 +165,10 @@ export function renderPage({ cssHref }) {
   <div class="hero__ground" aria-hidden="true"></div>
 </header>
 <main id="main">
-${renderWorlds()}
+${renderUniverse()}
 ${renderRoadmap()}
-${renderNostr()}
+${renderCommunity()}
+${renderOpenSource()}
 </main>
 <footer class="footer">
   <p>All Blobbi code is open source: MIT, with AGPL-3.0 for Blobbi Home and Blobbi Island. <a href="${esc(meta.repo)}">Source of this page</a>.</p>

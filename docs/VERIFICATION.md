@@ -1,37 +1,68 @@
-# Verification record, 2026-10-18
+# Verification record, 2026-10-21
 
-Internal project documentation: how the claims behind the public page were
-checked. The page itself stays short; the detail lives here. Re-check before
-changing a claim or an availability label.
+Internal project documentation: the evidence behind each claim on the public
+page, its known limits, and what still needs to be checked by hand. The page
+stays short; the detail lives here. Re-check before changing a claim or a
+status label.
 
-## Checked live on 2026-10-18
+Status labels used on the page:
 
-| Claim | Check |
-| --- | --- |
-| www.blobbi.pet, island.blobbi.pet, farm.blobbi.pet, pixel.blobbi.pet are live | HTTP 200 |
-| rumble.blobbi.pet is not running | HTTP 502 |
-| World Travel is on in Blobbi Home production | The live bundle's travel build flag is `build:"nostr"` |
-| World Travel ships in Blobbi Pixel production | The live bundle loads a `world-travel` chunk containing kind 31126 |
-| npm versions and licenses | `npm view`: core/react 0.11.1, renderer 0.6.0, 3d 0.1.1, inventory 0.5.0, all MIT |
-| Eight public repositories and their licenses | GitHub API: nostr-pet and blobbi-island AGPL-3.0; nostr-games-inventory, nostr-farm, blobbi-pixel-game, blobbi-rumble, blobbi-kit, farm-nostr-game MIT |
-| Ditto main still uses kit ^0.4.0; V3 on a branch | `origin/main` package.json; `origin/feat/blobbi-v3` exists |
+- **Available now**: deployed on a public site and usable by anyone.
+- **In testing**: built, but not yet verified on the live site or not yet
+  open to the public.
+- **Planned**: not built yet; see [ROADMAP-DETAIL.md](ROADMAP-DETAIL.md).
 
-## Taken from repository documentation (not re-run)
+Evidence levels used below: **code** (exists in the repository), **tests**
+(automated tests exist), **deployed** (on the branch or build that serves the
+public site), **live check** (observed on the public site), **player record**
+(a dated, written record of a test with real players).
 
-| Claim | Source |
-| --- | --- |
-| World Travel validated publicly between Home and Pixel | blobbi-pixel-game README, Status table |
-| Rumble statuses (validated over public networks, tested locally, implemented, planned) | blobbi-rumble README, Status; spec §19 |
-| Island World Travel not implemented; Island, Farm, Rumble are the next Worlds | blobbi-kit `packages/blobbi-core/WORLD-TRAVEL.md` §11; no kind 31126 in Island source |
-| Farm creation and item publishing checked against public relays | nostr-farm commits `aeb5cf4`, `cd94d01`, `c7e93fc` |
-| Farm → Island and Farm/Island → Home item spends: tests, no recorded live loop | blobbi-island `src/inventory/external-spend.ts`, nostr-farm `src/inventory/ledger.ts`, nostr-pet `src/features/inventory/`; no manual validation record found |
-| Pixel M4+ awaiting manual validation; island saved locally only | blobbi-pixel-game README |
-| Island Nostr Station has one working card | blobbi-island `src/components/NostrHubModal.tsx` |
-| Guest play in Home, Pixel, Rumble | Each README |
+## Status of each claim
+
+| Claim on the page | Label | Evidence | Known limits |
+| --- | --- | --- | --- |
+| Home, Pixel, Island and Farm are playable | Available now | Live check 2026-10-21: HTTP 200 for www, pixel, island and farm.blobbi.pet | Island calls itself pre-alpha and is labelled Early access. Pixel saves progress in the browser only |
+| Blobbi Home can be tried before making an account | Available now | Code: `nostr-pet/src/features/guest/`; deployed on `production` (5646e54) | |
+| One Nostr key works in every Blobbi game | Available now | Code: each game signs in with a Nostr key | Sign-in options differ between games (see "Sign-in" below); each game asks you to sign in separately |
+| World Travel between Home and Pixel | Available now | Deployed: Home `production` = 5646e54; Pixel `main` = 6b983cf. Live check 2026-10-18: Home bundle has travel on (`build:"nostr"`), Pixel bundle loads the `world-travel` chunk. Pixel README: "validated publicly" | The travel model was rewritten on 2026-10-19/20 ("opening a world is the trip"). No dated player record exists for the new model. Requires signing in; guests do not travel |
+| Travel to and from Blobbi Island | In testing | Code and tests: `blobbi-island/src/worlds/useIslandWorldTravel.ts`, `world-travel.nostr.test.tsx`; deployed branch `production` = bd79e3c | Travel only works if Island's production build sets `VITE_BLOBBI_WORLD_TRAVEL=nostr`; **not yet checked**. Pixel README: Pixel and Island travel "not yet validated publicly". No player record |
+| Farm crops feed your Blobbi on Island and in Home | Available now | Code and tests: `blobbi-island/src/inventory/external-spend.ts`, `useConsumeExternalItem.ts`; `nostr-pet/src/features/inventory/useUseItem.ts`; Farm fold ledger on `main` (8306b38). All on deployed branches | **No written player record** found in any repository (`nostr-farm/docs/procedural-farm-audit.md` §5.3–5.4 says none is recorded). The owner reports that real players have used it; add the dated record here. Every crop has the same effect (+25 hunger) |
+| Keeping item counts in sync is still being improved | (qualifier) | Blobbi Home spends items from Island's own inventory (`blobbi:island`) with kind 1416. Island's own inventory code (`src/inventory/useIslandInventory.ts`, `useInventoryMutation.ts`) does not read or fold those spends; only external inventories do (`useExternalInventoryEvents.ts`) | **Needs investigation:** an item used in Home may still show as available in Island. Scheduled for month 2 |
+| Rumble: online matches tested, not open to the public | In testing | `blobbi-rumble` README status table (HEAD 2fc713a): network play, Nostr sign-in, invites and the player's own Blobbis "validated over public networks". Architecture: a server-authoritative Node/WebSocket server (spec §8, §20; peer-to-peer explicitly rejected in §9) | Never run as a public service per the README; no real-phone test; session restore awaiting a new run. **rumble.blobbi.pet answered HTTP 200 with a passing `/healthz` on 2026-10-21**, which the README does not explain; the page keeps "In testing" until the owner decides |
+| Explore together in Pixel | Planned | `blobbi-pixel-multiplayer` branch `feat/pixel-multiplayer` (c1fdc30): a movement-only prototype, development builds only, not pushed | Not a production feature |
+| Blobbis can be raised inside Ditto | (community section) | Ditto `origin/main` (972cbc9b, 2026-10-17) ships `src/blobbi/` and depends on `@blobbi-kit/core` and `react` ^0.4.0 | Ditto main is several minor versions behind the current kit (0.11.1); V3 support is on Ditto's unmerged `feat/blobbi-v3` branch. No new collaboration is implied |
+| Libraries published under MIT | Available now | `npm view`: `@blobbi-kit/core` and `react` 0.11.1, `renderer` 0.6.0, `3d` 0.1.1, `@nostr-games/inventory` 0.5.0; all MIT | No example app or starter template yet (month 5). No NIP submitted |
+| Every game and library is open source | Available now | GitHub license API: nostr-pet and blobbi-island AGPL-3.0; blobbi-pixel-game, nostr-farm, blobbi-rumble, blobbi-kit, nostr-games-inventory, farm-nostr-game and blobbi-roadmap MIT. All nine repositories public | Farm artwork in farm-nostr-game has its own notice |
+
+## Sign-in, as of 2026-10-21
+
+| World | Extension (NIP-07) | Remote signer (NIP-46) | Pasted key | Created key | Play before signing in |
+| --- | --- | --- | --- | --- | --- |
+| Home | yes | yes | no (by design) | yes, with backup step | yes |
+| Pixel | yes | no | yes | yes (local vault) | yes |
+| Island | yes | yes (bunker) | yes | yes, with backup download | no |
+| Farm | yes | yes (bunker) | yes | yes, with backup download | no |
+| Rumble | yes | no (planned) | no | no | yes (guest) |
+
+Sources: the README and auth code of each repository.
+
+## Claims that still need a manual check
+
+1. Island's production build has World Travel turned on (inspect the live
+   bundle for the travel flag, then travel Home → Island → Home with a test
+   key).
+2. A dated, written record of real players using Farm crops on Island and in
+   Home.
+3. A dated record of Home ↔ Pixel travel under the 2026-10-20 model.
+4. Whether the Island item-count issue above happens in practice.
+5. Whether rumble.blobbi.pet is meant to be running, and on which build.
 
 ## Deliberately left off the site
 
-- Usage numbers. The site shows no figures until baselines are published in
-  a reproducible report.
+- Usage numbers. The site shows no figures until the baseline report in
+  month 1 is published with its method. An earlier internal audit of public
+  relay data (2026-10-16) found about 1,567 Nostr identities that published
+  at least one Blobbi; that is a count of keys, not people, and says nothing
+  about how many were new to Nostr.
 - Work that is not in a public repository.
 - Calendar dates for any roadmap item.

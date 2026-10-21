@@ -13,15 +13,21 @@ All text lives in `content/`; you should rarely need to touch anything else.
 
 | File | What it holds |
 | --- | --- |
-| `content/meta.mjs` | Title, description, URL, **`updated` date**, the introduction |
-| `content/worlds.mjs` | The five game cards; `available` decides "Play now" |
-| `content/roadmap.mjs` | The six months, at most two short sentences each |
-| `content/nostr.mjs` | "Built on Nostr": four points and the library links |
+| `content/meta.mjs` | Title, description, URL, **`updated` date**, the introduction, the three status labels |
+| `content/worlds.mjs` | "The Blobbi Universe": the five game cards and "What already connects them" |
+| `content/roadmap.mjs` | The six months: title, theme, one or two sentences, the player outcome |
+| `content/community.mjs` | "Growing the Blobbi Universe": four pillars |
+| `content/opensource.mjs` | "Open Source": what developers can use today, what is next, the repository links |
+
+Every world and connection has a `status`: `available` ("Available now"),
+`testing` ("In testing") or `planned` ("Planned"). Only use `available` or
+`testing` for a claim that has a row in
+[`docs/VERIFICATION.md`](docs/VERIFICATION.md).
 
 When a month's work lands, add a `progress` line to it with a link to the
-evidence (a release, a commit, a report). Keep the page short: details and
-evidence belong in [`docs/VERIFICATION.md`](docs/VERIFICATION.md), not on
-the page.
+evidence (a release, a commit, a report). Keep the page short: the detailed plan
+belongs in [`docs/ROADMAP-DETAIL.md`](docs/ROADMAP-DETAIL.md) and the
+evidence in [`docs/VERIFICATION.md`](docs/VERIFICATION.md), not on the page.
 
 Then set `meta.updated` to today's date and rebuild. Inline text supports
 `` `code` `` and `[links](https://…)`; everything else is escaped.
