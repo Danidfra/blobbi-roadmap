@@ -65,9 +65,12 @@ in `vercel.json` would then need to be set on that host.
 
 Each world card shows a real screenshot of the game, framed at 16:10.
 
-- Files: `public/media/<name>-960.webp` and `<name>-480.webp`, named in the
-  world's `media` entry in `content/worlds.mjs`, with alt text describing
-  the scene.
+- Files: `public/media/<name>-960.v<version>.webp` and
+  `<name>-480.v<version>.webp`, named in the world's `media` entry in
+  `content/worlds.mjs`, with alt text describing the scene.
+- They are cached for a year. To replace a screenshot, add new files with
+  the next version number and bump `version`; never overwrite a published
+  file. Remove the old files once the new ones are live.
 - Capture them from the live game (the Rumble test server for Rumble) in a
   clean browser at 1280×800 and device scale 2, crop to 16:10 on the
   gameplay, then export with
@@ -79,7 +82,8 @@ Each world card shows a real screenshot of the game, framed at 16:10.
 
 **Planned: short gameplay clips.** The `video` field is reserved for 5–8
 second clips recorded from real gameplay. When they exist, the card keeps the
-same 16:10 frame and the screenshot becomes the poster and fallback. The clip
+same 16:10 frame and the current screenshot stays as the poster and the
+fallback (for reduced motion, slow connections and browsers without video). The clip
 should be muted and looping, play only while the card is on screen, and never
 play when the visitor prefers reduced motion. That needs a small first-party
 script (an `IntersectionObserver` plus a `prefers-reduced-motion` check), so

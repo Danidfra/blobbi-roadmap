@@ -4,11 +4,13 @@
 // of the keys in `statuses` (content/meta.mjs); `note` adds a short qualifier
 // to the badge.
 //
-// `media` is a real screenshot of the game, in public/media/<name>-960.webp
-// and <name>-480.webp (16:10). `alt` says what the screenshot shows. A world
-// without `media` falls back to its illustration. `video` is reserved for
-// short gameplay clips (see README, "Gameplay previews"); keep it null until
-// the clips exist.
+// `media` is a real screenshot of the game, in
+// public/media/<name>-960.v<version>.webp and <name>-480.v<version>.webp
+// (16:10). Files are cached for a year, so a new screenshot gets a new
+// `version` and new files; never overwrite an existing one. `alt` says what
+// the screenshot shows. A world without `media` falls back to its
+// illustration. `video` is reserved for short gameplay clips (see README,
+// "Gameplay previews"); the screenshot stays as their poster and fallback.
 //
 // Connections: one line each, with the same `status` keys. Only claims that
 // docs/VERIFICATION.md backs up belong here.
@@ -22,7 +24,7 @@ export const worlds = [
     text: 'Adopt an egg, hatch it and care for your Blobbi as it grows up. Try it before making an account.',
     url: 'https://www.blobbi.pet',
     repo: 'https://github.com/Danidfra/nostr-pet',
-    media: { name: 'home', alt: 'Blobbi Home: a newly hatched Blobbi in its room, above the Feed, Play, Care, Rest and Items buttons.', video: null },
+    media: { name: 'home', version: 1, alt: 'Blobbi Home: a newly hatched Blobbi in its room, above the Feed, Play, Care, Rest and Items buttons.', video: null },
     status: 'available',
   },
   {
@@ -33,7 +35,7 @@ export const worlds = [
     text: 'Gather, craft, farm and build a home on an island drawn pixel by pixel from a seed.',
     url: 'https://pixel.blobbi.pet',
     repo: 'https://github.com/Danidfra/blobbi-pixel-game',
-    media: { name: 'pixel', alt: 'Blobbi Pixel: a small blue Blobbi beside a tree, a rock and a pond on a pixel-art island.', video: null },
+    media: { name: 'pixel', version: 1, alt: 'Blobbi Pixel: a small blue Blobbi beside a tree, a rock and a pond on a pixel-art island.', video: null },
     status: 'available',
   },
   {
@@ -44,7 +46,7 @@ export const worlds = [
     text: 'Walk your Blobbi around town, shop, play mini-games and meet other players live.',
     url: 'https://island.blobbi.pet',
     repo: 'https://github.com/Danidfra/blobbi-island',
-    media: { name: 'island', alt: 'Blobbi Island: a pink Blobbi in Town Square, in front of the Game Arcade, the Performance Stage and the Village Shop.', video: null },
+    media: { name: 'island', version: 1, alt: 'Blobbi Island: a pink Blobbi in Town Square, in front of the Game Arcade, the Performance Stage and the Village Shop.', video: null },
     status: 'available',
     note: 'Early access',
   },
@@ -56,7 +58,7 @@ export const worlds = [
     text: 'Plant, water and harvest crops, then use them to feed your Blobbi in other worlds.',
     url: 'https://farm.blobbi.pet',
     repo: 'https://github.com/Danidfra/nostr-farm',
-    media: { name: 'farm', alt: 'Nostr Farm: three rows of carrots, parsnips, pumpkins and strawberries, most of them ready to harvest.', video: null },
+    media: { name: 'farm', version: 1, alt: 'Nostr Farm: three rows of carrots, parsnips, pumpkins and strawberries, most of them ready to harvest.', video: null },
     status: 'available',
   },
   {
@@ -67,7 +69,7 @@ export const worlds = [
     text: 'Up to four Blobbis punch, grab and throw each other off floating arenas.',
     url: null,
     repo: 'https://github.com/Danidfra/blobbi-rumble',
-    media: { name: 'rumble', alt: 'A Blobbi Rumble test match: four Blobbis, labelled P1 to P4, on a floating grass arena.', video: null },
+    media: { name: 'rumble', version: 1, alt: 'A Blobbi Rumble test match: four Blobbis, labelled P1 to P4, on a floating grass arena.', video: null },
     status: 'testing',
     note: 'Not public yet',
   },

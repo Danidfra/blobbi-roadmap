@@ -34,7 +34,7 @@ function chip(status, note, extraClass = '') {
 // without changing the card.
 function preview(w) {
   if (!w.media) return art(w.art, 112);
-  const src = (width) => `/media/${w.media.name}-${width}.webp`;
+  const src = (width) => `/media/${w.media.name}-${width}.v${w.media.version}.webp`;
   return `<img class="world__shot" src="${src(960)}" srcset="${src(480)} 480w, ${src(960)} 960w" sizes="(min-width: 60rem) 20rem, (min-width: 40rem) 46vw, 92vw" width="960" height="600" alt="${esc(w.media.alt)}" loading="lazy" decoding="async">`;
 }
 
