@@ -27,14 +27,26 @@ function chip(status, note, extraClass = '') {
   return `<span class="chip chip--${status}${extraClass}"><span aria-hidden="true">${symbols[status]}</span> ${esc(label)}</span>`;
 }
 
+// The card's preview: a real screenshot when the world has one, otherwise its
+// illustration. Over a screenshot the status chip would hide gameplay, so it
+// moves into the card body. The screenshot sits in a fixed 16:10 frame, so a
+// gameplay clip can later take its place (with the screenshot as its poster)
+// without changing the card.
+function preview(w) {
+  if (!w.media) return art(w.art, 112);
+  const src = (width) => `/media/${w.media.name}-${width}.webp`;
+  return `<img class="world__shot" src="${src(960)}" srcset="${src(480)} 480w, ${src(960)} 960w" sizes="(min-width: 60rem) 20rem, (min-width: 40rem) 46vw, 92vw" width="960" height="600" alt="${esc(w.media.alt)}" loading="lazy" decoding="async">`;
+}
+
 function renderUniverse() {
   const card = (w) => {
     const play = w.url
       ? `<a class="btn btn--play" href="${esc(w.url)}">Play<span class="visually-hidden"> ${esc(w.name)}</span></a>`
       : '';
     return `<li class="world world--${w.id}">
-        <div class="world__stage">${art(w.art, 112)}${chip(w.status, w.note, ' badge')}</div>
+        <div class="world__stage${w.media ? ' world__stage--media' : ''}">${preview(w)}${w.media ? '' : chip(w.status, w.note, ' badge')}</div>
         <div class="world__body">
+          ${w.media ? `<p class="world__status">${chip(w.status, w.note)}</p>` : ''}
           <h3>${esc(w.name)}</h3>
           <p class="world__tagline">${esc(w.tagline)}</p>
           <p>${inline(w.text)}</p>

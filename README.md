@@ -61,6 +61,31 @@ Not done yet. The code is at <https://github.com/Danidfra/blobbi-roadmap>.
 Any static host works too: upload `dist/` after `node build.mjs`. The headers
 in `vercel.json` would then need to be set on that host.
 
+## Gameplay previews
+
+Each world card shows a real screenshot of the game, framed at 16:10.
+
+- Files: `public/media/<name>-960.webp` and `<name>-480.webp`, named in the
+  world's `media` entry in `content/worlds.mjs`, with alt text describing
+  the scene.
+- Capture them from the live game (the Rumble test server for Rumble) in a
+  clean browser at 1280×800 and device scale 2, crop to 16:10 on the
+  gameplay, then export with
+  `cwebp -q 80 -m 6` at 960×600 and 480×300. Keep each file under about
+  80 KB.
+- Never use mockups, generated images or another game's screens. If a
+  screenshot cannot be captured, leave out `media` and the card shows its
+  illustration.
+
+**Planned: short gameplay clips.** The `video` field is reserved for 5–8
+second clips recorded from real gameplay. When they exist, the card keeps the
+same 16:10 frame and the screenshot becomes the poster and fallback. The clip
+should be muted and looping, play only while the card is on screen, and never
+play when the visitor prefers reduced motion. That needs a small first-party
+script (an `IntersectionObserver` plus a `prefers-reduced-motion` check), so
+the Content Security Policy in `vercel.json` will need `script-src 'self'`
+and `media-src 'self'` at that point.
+
 ## Artwork
 
 The Blobbis in `public/art/` are drawn by

@@ -57,6 +57,24 @@ Sources: the README and auth code of each repository.
 4. Whether the Island item-count issue above happens in practice.
 5. Which Rumble build is running on rumble.blobbi.pet.
 
+## Screenshots on the world cards, 2026-10-21
+
+Captured from the live games in a clean headless Chrome (no extensions, no
+existing sign-in), 1280×800 at device scale 2, then cropped to 16:10.
+
+| World | Scene | How it was reached |
+| --- | --- | --- |
+| Blobbi Home | A newly hatched Blobbi in its room | Guest mode ("Meet your Blobbi!"): nothing was signed or published |
+| Blobbi Pixel | The Blobbi on a new island, camera "Up close 6X" | Guest mode ("New Adventure"): saved in the browser only |
+| Blobbi Island | The Blobbi in Town Square | A throwaway test key created through "New here? Get started" |
+| Nostr Farm | Planted and watered crops | The same throwaway key |
+| Blobbi Rumble | A Quick Match against the server's test bots | Guest play on the rumble.blobbi.pet test server; shows a test match, not a public release |
+
+The throwaway key published real events to public relays (an Island Blobbi
+and presence, a Farm and its field). Exclude it from any adoption figures:
+
+`6eb4d1b5d23f68380c0057d4b7131beb075b61138e427dda4520682a8d92d22b`
+
 ## Deliberately left off the site
 
 - Usage numbers. The site shows no figures until the baseline report in

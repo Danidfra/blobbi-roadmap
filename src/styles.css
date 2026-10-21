@@ -443,6 +443,29 @@ main {
   opacity: 0.85;
 }
 
+/* A screenshot preview, framed in the world's colour. The 16:10 frame is
+   fixed so a gameplay clip can replace the image without moving the card. */
+.world__stage--media {
+  display: block;
+  height: auto;
+  padding: 0.6rem;
+  background: var(--stage);
+}
+
+.world__shot {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--stage) 70%, var(--ink));
+  box-shadow: 0 1px 0 rgba(51, 40, 26, 0.06), 0 8px 18px -12px rgba(40, 20, 80, 0.45);
+}
+
+.world__status {
+  margin-bottom: 0.6rem;
+}
+
 .chip {
   display: inline-flex;
   gap: 0.35em;
